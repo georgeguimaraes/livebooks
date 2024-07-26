@@ -1,0 +1,53 @@
+# ISO8583 Tools
+
+```elixir
+Mix.install([
+  {:iso_8583, "~> 0.1.5"},
+  {:tlv, "~> 0.2.0", path: "/Users/george/code/elixir_tlv"}
+])
+```
+
+## Section
+
+```elixir
+{:ok, msg} =
+  "5F2A020978"
+  |> Base.decode16(case: :mixed)
+```
+
+```elixir
+{decoded, other} = TLV.decode(msg)
+```
+
+```elixir
+decoded.tag == <<95, 42>> |> 
+```
+
+```elixir
+"5F2A" |> Base.decode16!()
+```
+
+```elixir
+# Defining a binary with a 16-bit integer
+binary = <<0x5F2A::16>>
+
+# Output the binary
+IO.inspect(binary)
+
+# Converting the binary to a hex string for display purposes
+hex_string = Base.encode16(binary)
+IO.puts("Hex string: #{hex_string}")
+```
+
+```elixir
+# Hexadecimal string
+hex_string = "5F2A"
+
+# Convert hex string to integer
+decimal_value = String.to_integer(hex_string, 16)
+
+Integer.to_string(2)
+
+# Output the decimal value
+IO.puts("Decimal value: #{decimal_value}")
+```
