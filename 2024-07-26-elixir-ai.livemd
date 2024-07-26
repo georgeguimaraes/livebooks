@@ -1,3 +1,5 @@
+[![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fgeorgeguimaraes%2Flivebooks%2Fblob%2Fmain%2F2024-07-26-elixir-ai.livemd)
+
 # Elixir, Concurrency and AI
 
 ```elixir
