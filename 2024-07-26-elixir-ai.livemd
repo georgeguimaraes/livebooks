@@ -1,4 +1,4 @@
-[![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fgeorgeguimaraes%2Flivebooks%2Fblob%2Fmain%2F2024-07-26-elixir-ai.livemd)
+<!-- livebook:{"app_settings":{"show_source":true,"slug":"elixir-ai"},"file_entries":[{"name":"SCR-20240803-jcvm.jpeg","type":"attachment"}]} -->
 
 # Elixir, Concurrency and AI
 
@@ -20,6 +20,21 @@ Mix.install(
 ```
 
 ## Welcome
+
+Shamelessly copied from:
+
+![](files/SCR-20240803-jcvm.jpeg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### George Guimarães
+
+* formerly co-founder at Plataformatec, company behind Elixir
+* principal engineer at CloudWalk
+* [https://twitter.com/georgeguimaraes](https://twitter.com/georgeguimaraes)
+* [https://www.linkedin.com/in/georgeguimaraes/](https://www.linkedin.com/in/georgeguimaraes/)
+
+<!-- livebook:{"break_markdown":true} -->
 
 Elixir is a dynamic and functional programming language that runs on the Erlang VM:
 
@@ -72,7 +87,6 @@ Or when actually popping from a list:
 
 ```elixir
 List.pop_at(list, -1)
-list
 ```
 
 Elixir data structures are **immutable**. This style of programming is made clear with the `|>` (pipe) operator:
@@ -82,7 +96,7 @@ Elixir data structures are **immutable**. This style of programming is made clea
 |> Enum.to_list()
 |> Enum.take_random(6)
 |> Enum.sort()
-|> dbg
+|> dbg 
 ```
 
 ## Concurrency
@@ -172,6 +186,17 @@ But how to plot it?
 
 ### Smart cell here!
 
+<!-- livebook:{"attrs":"eyJjaGFydF90aXRsZSI6bnVsbCwiaGVpZ2h0Ijo1MDAsImxheWVycyI6W3siYWN0aXZlIjp0cnVlLCJjaGFydF90eXBlIjoicG9pbnQiLCJjb2xvcl9maWVsZCI6InN0YXR1cyIsImNvbG9yX2ZpZWxkX2FnZ3JlZ2F0ZSI6bnVsbCwiY29sb3JfZmllbGRfYmluIjpudWxsLCJjb2xvcl9maWVsZF9zY2FsZV9zY2hlbWUiOm51bGwsImNvbG9yX2ZpZWxkX3R5cGUiOiJub21pbmFsIiwiZGF0YV92YXJpYWJsZSI6InByb2Nlc3NlcyIsImdlb2RhdGFfY29sb3IiOiJibHVlIiwibGF0aXR1ZGVfZmllbGQiOm51bGwsImxvbmdpdHVkZV9maWVsZCI6bnVsbCwieF9maWVsZCI6Im1lbW9yeSIsInhfZmllbGRfYWdncmVnYXRlIjpudWxsLCJ4X2ZpZWxkX2JpbiI6bnVsbCwieF9maWVsZF9zY2FsZV90eXBlIjoibG9nIiwieF9maWVsZF90eXBlIjoicXVhbnRpdGF0aXZlIiwieV9maWVsZCI6InJlZHVjdGlvbnMiLCJ5X2ZpZWxkX2FnZ3JlZ2F0ZSI6bnVsbCwieV9maWVsZF9iaW4iOm51bGwsInlfZmllbGRfc2NhbGVfdHlwZSI6ImxvZyIsInlfZmllbGRfdHlwZSI6InF1YW50aXRhdGl2ZSJ9XSwidmxfYWxpYXMiOiJFbGl4aXIuVmVnYUxpdGUiLCJ3aWR0aCI6NTAwfQ","chunks":null,"kind":"Elixir.KinoVegaLite.ChartCell","livebook_object":"smart_cell"} -->
+
+```elixir
+VegaLite.new(width: 500, height: 500)
+|> VegaLite.data_from_values(processes, only: ["memory", "reductions", "status"])
+|> VegaLite.mark(:point)
+|> VegaLite.encode_field(:x, "memory", type: :quantitative, scale: [type: :log])
+|> VegaLite.encode_field(:y, "reductions", type: :quantitative, scale: [type: :log])
+|> VegaLite.encode_field(:color, "status", type: :nominal)
+```
+
 <!-- livebook:{"attrs":"eyJjaGFydF90aXRsZSI6bnVsbCwiaGVpZ2h0Ijo3MDAsImxheWVycyI6W3siYWN0aXZlIjp0cnVlLCJjaGFydF90eXBlIjoicG9pbnQiLCJjb2xvcl9maWVsZCI6InN0YXR1cyIsImNvbG9yX2ZpZWxkX2FnZ3JlZ2F0ZSI6bnVsbCwiY29sb3JfZmllbGRfYmluIjpudWxsLCJjb2xvcl9maWVsZF9zY2FsZV9zY2hlbWUiOm51bGwsImNvbG9yX2ZpZWxkX3R5cGUiOiJub21pbmFsIiwiZGF0YV92YXJpYWJsZSI6InByb2Nlc3NlcyIsImdlb2RhdGFfY29sb3IiOiJibHVlIiwibGF0aXR1ZGVfZmllbGQiOm51bGwsImxvbmdpdHVkZV9maWVsZCI6bnVsbCwieF9maWVsZCI6Im1lbW9yeSIsInhfZmllbGRfYWdncmVnYXRlIjpudWxsLCJ4X2ZpZWxkX2JpbiI6bnVsbCwieF9maWVsZF9zY2FsZV90eXBlIjoibG9nIiwieF9maWVsZF90eXBlIjoicXVhbnRpdGF0aXZlIiwieV9maWVsZCI6InJlZHVjdGlvbnMiLCJ5X2ZpZWxkX2FnZ3JlZ2F0ZSI6bnVsbCwieV9maWVsZF9iaW4iOm51bGwsInlfZmllbGRfc2NhbGVfdHlwZSI6ImxvZyIsInlfZmllbGRfdHlwZSI6InF1YW50aXRhdGl2ZSJ9XSwidmxfYWxpYXMiOiJFbGl4aXIuVmVnYUxpdGUiLCJ3aWR0aCI6NzAwfQ","chunks":null,"kind":"Elixir.KinoVegaLite.ChartCell","livebook_object":"smart_cell"} -->
 
 ```elixir
@@ -213,7 +238,38 @@ Req.get!("http://localhost:9010", params: [name: "George"])
 
 </div>
 
-<!-- livebook:{"break_markdown":true} -->
+<!-- livebook:{"attrs":"eyJjb21waWxlciI6ImV4bGEiLCJzZXF1ZW5jZV9sZW5ndGgiOjEwMCwidGFza19pZCI6InRleHRfY2xhc3NpZmljYXRpb24iLCJ0b3BfayI6bnVsbCwidmFyaWFudF9pZCI6InJvYmVydGFfYmVydHdlZXRfZW1vdGlvbiJ9","chunks":[[0,335],[337,507]],"kind":"Elixir.KinoBumblebee.TaskCell","livebook_object":"smart_cell"} -->
+
+```elixir
+{:ok, model_info} =
+  Bumblebee.load_model({:hf, "finiteautomata/bertweet-base-emotion-analysis"})
+
+{:ok, tokenizer} = Bumblebee.load_tokenizer({:hf, "vinai/bertweet-base"})
+
+serving =
+  Bumblebee.Text.text_classification(model_info, tokenizer,
+    compile: [batch_size: 1, sequence_length: 100],
+    defn_options: [compiler: EXLA]
+  )
+
+text_input = Kino.Input.textarea("Text", default: "Oh wow, I didn't know that!")
+form = Kino.Control.form([text: text_input], submit: "Run")
+frame = Kino.Frame.new()
+
+Kino.listen(form, fn %{data: %{text: text}} ->
+  Kino.Frame.render(frame, Kino.Text.new("Running..."))
+  output = Nx.Serving.run(serving, text)
+
+  output.predictions
+  |> Enum.map(&{&1.label, &1.score})
+  |> Kino.Bumblebee.ScoredList.new()
+  |> then(&Kino.Frame.render(frame, &1))
+end)
+
+Kino.Layout.grid([form, frame], boxed: true, gap: 16)
+```
+
+
 
 <!-- livebook:{"attrs":"eyJjb21waWxlciI6ImV4bGEiLCJzZXF1ZW5jZV9sZW5ndGgiOjEwMCwidGFza19pZCI6InRleHRfY2xhc3NpZmljYXRpb24iLCJ0b3BfayI6bnVsbCwidmFyaWFudF9pZCI6InJvYmVydGFfYmVydHdlZXRfZW1vdGlvbiJ9","chunks":[[0,335],[337,507]],"kind":"Elixir.KinoBumblebee.TaskCell","livebook_object":"smart_cell"} -->
 
@@ -249,18 +305,7 @@ Kino.Layout.grid([form, frame], boxed: true, gap: 16)
 ## Nx.Serving with Batching
 
 ```elixir
-{:ok, model_info} =
-  Bumblebee.load_model({:hf, "finiteautomata/bertweet-base-emotion-analysis"})
 
-{:ok, tokenizer} = Bumblebee.load_tokenizer({:hf, "vinai/bertweet-base"})
-
-serving =
-  Bumblebee.Text.text_classification(model_info, tokenizer,
-    compile: [batch_size: 1, sequence_length: 100],
-    defn_options: [compiler: EXLA]
-  )
-
-Kino.start_child!({Nx.Serving, serving: serving, name: :web_ai_serving})
 ```
 
 ```elixir
@@ -293,8 +338,8 @@ defmodule WebAI do
   def render(conn, _opts) do
     text = conn.params["text"]
     output = Nx.Serving.batched_run(:web_ai_serving, text)
-    
-    [ %{ label: label, score: _ } | _ ] = output.predictions
+
+    [ %{ label: label, score: _ } | _ ] = output.predictions 
     
     Plug.Conn.send_resp(conn, 200, "this was #{label}!")
   end
@@ -304,5 +349,19 @@ Kino.start_child!({Bandit, plug: WebAI, port: 9003})
 ```
 
 ```elixir
-Req.get!("http://localhost:9003", params: [text: "I'm crying"])
+node = :"livebook_ggnn34o7--5fguoy33@127.0.0.1"
+cookie = :"c_WcTIb_fj3crlqhYI0unp0ymPoakEb6f7Ub_HH4vqJJ7pwwiO5fG6"
+
+
 ```
+
+```elixir
+Node.set_cookie(node, cookie)
+Node.connect(node)
+```
+
+```elixir
+Req.get!("http://localhost:9003", params: [text: "I'm listening to The Cure"])
+```
+
+<!-- livebook:{"offset":10210,"stamp":{"token":"XCP.LMDrlq1H51gOG--hC-LhX6cDHufEls00FQftbWYyGSbUhr4drIDxCsFX68uNoyZOqheUW8Q5PAZk4jS-NBog4_FzfYdIhaUESOWdPgisYBQqQtTWlK1mYrAP","version":2}} -->
